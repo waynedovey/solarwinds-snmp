@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: AlertmanagerConfig
+metadata:
+  name: alertmanager-main
+  namespace: openshift-monitoring
+spec:
+  route:
+    groupBy: ['alertname']
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    routes:
+      - matchers:
+          - name: severity
+            value: critical
+        receiver: snmp-webhook
+  receivers:
+    - name: snmp-webhook
+      webhookConfigs:
+        - url: 'http://flask-app:5000/snmptrap'
+          sendResolved: true
