@@ -18,7 +18,7 @@ oc set env deployment/flask-app APP_FILE=app.py SOLARWINDS_IP=10.10.10.10
 oc expose deployment/flask-app --port=5000
 ```
 
-**Use with caution and only for external testing**
+:warning: **Use with caution and only for external testing**: 
 ```
 oc expose svc/flask-app
 ```
